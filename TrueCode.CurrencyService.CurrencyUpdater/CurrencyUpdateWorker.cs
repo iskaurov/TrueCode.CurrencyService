@@ -2,6 +2,7 @@ using Microsoft.Extensions.Options;
 
 using System.Globalization;
 using System.Xml.Linq;
+using Microsoft.EntityFrameworkCore;
 using TrueCode.CurrencyService.Infrastructure.Db;
 using TrueCode.CurrencyService.Domain.Entities;
 
@@ -16,6 +17,8 @@ public class CurrencyUpdateWorker(
 {
     private readonly CurrencyUpdaterOptions _options = options.Value;
 
+    private const string CurrenciesSourceUrl = "http://www.cbr.ru/scripts/XML_daily.asp";
+
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
@@ -25,10 +28,10 @@ public class CurrencyUpdateWorker(
                 logger.LogInformation("Start updating currencies...");
 
                 var httpClient = httpClientFactory.CreateClient();
-                var response = await httpClient.GetStringAsync("http://www.cbr.ru/scripts/XML_daily.asp", stoppingToken);
+                var response = await httpClient.GetStringAsync(CurrenciesSourceUrl, stoppingToken);
 
                 var doc = XDocument.Parse(response);
-                var currencies = doc.Descendants("Valute")
+                var fetchedCurrencies = doc.Descendants("Valute")
                     .Select(valute => new Currency
                     {
                         Id = Guid.NewGuid(),
@@ -43,18 +46,26 @@ public class CurrencyUpdateWorker(
                 using var scope = serviceProvider.CreateScope();
                 var db = scope.ServiceProvider.GetRequiredService<CurrencyDbContext>();
 
-                // Удалим все и вставим заново (можно улучшить на UPSERT)
-                db.Currencies.RemoveRange(db.Currencies);
-                await db.Currencies.AddRangeAsync(currencies, stoppingToken);
+                var existingCurrencies = await db.Currencies
+                    .ToDictionaryAsync(c => c.Name, stoppingToken);
+
+                foreach (var fetched in fetchedCurrencies)
+                {
+                    if (existingCurrencies.TryGetValue(fetched.Name, out var existing))
+                        existing.Rate = fetched.Rate;
+                    else
+                        await db.Currencies.AddAsync(fetched, stoppingToken);
+                }
+
                 await db.SaveChangesAsync(stoppingToken);
 
-                logger.LogInformation("Currencies updated: {Count}", currencies.Count);
+                logger.LogInformation("Currencies updated: {Count}", fetchedCurrencies.Count);
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, "Failed to update currencies");
             }
-            
+
             await Task.Delay(TimeSpan.FromMinutes(_options.UpdateIntervalMinutes), stoppingToken);
         }
     }
