@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "TrueCode.CurrencyService.FinanceApi.Grpc";
+
+package currency;
+
+service CurrencyService {
+  rpc GetFavorites (FavoritesRequest) returns (FavoritesResponse);
+}
+
+message FavoritesRequest {
+  string userId = 1;
+}
+
+message FavoritesResponse {
+  repeated Currency currencies = 1;
+}
+
+message Currency {
+  string name = 1;
+  double rate = 2;
+}

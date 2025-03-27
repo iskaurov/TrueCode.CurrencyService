@@ -1,0 +1,6 @@
+@TrueCode.CurrencyService.UserApi_HostAddress = http://localhost:5151
+
+GET {{TrueCode.CurrencyService.UserApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
