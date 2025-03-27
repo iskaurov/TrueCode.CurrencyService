@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <ItemGroup>
-      <ProjectReference Include="..\TrueCode.CurrencyService.Domain\TrueCode.CurrencyService.Domain.csproj" />
+      <ProjectReference Include="..\TrueCode.CurrencyService.Core.Domain\TrueCode.CurrencyService.Core.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>

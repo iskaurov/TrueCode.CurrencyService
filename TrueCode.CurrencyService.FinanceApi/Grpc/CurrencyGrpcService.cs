@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Grpc.Core;
 using Microsoft.AspNetCore.Authorization;
-using TrueCode.CurrencyService.Application.Services;
+using TrueCode.CurrencyService.Core.Services;
 
 namespace TrueCode.CurrencyService.FinanceApi.Grpc;
 

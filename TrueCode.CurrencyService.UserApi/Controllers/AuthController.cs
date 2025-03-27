@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using TrueCode.CurrencyService.Application.Services;
+using TrueCode.CurrencyService.Core.Services;
 using TrueCode.CurrencyService.UserApi.Models.Auth;
 
 namespace TrueCode.CurrencyService.UserApi.Controllers;

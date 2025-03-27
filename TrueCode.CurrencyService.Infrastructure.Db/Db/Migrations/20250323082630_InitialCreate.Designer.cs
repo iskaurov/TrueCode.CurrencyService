@@ -40,7 +40,7 @@ namespace TrueCode.CurrencyService.Infrastructure.Db.Migrations
                     b.ToTable("UserCurrency", (string)null);
                 });
 
-            modelBuilder.Entity("TrueCode.CurrencyService.Domain.Entities.Currency", b =>
+            modelBuilder.Entity("TrueCode.CurrencyService.Core.Domain.Entities.Currency", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,7 +58,7 @@ namespace TrueCode.CurrencyService.Infrastructure.Db.Migrations
                     b.ToTable("Currencies");
                 });
 
-            modelBuilder.Entity("TrueCode.CurrencyService.Domain.Entities.User", b =>
+            modelBuilder.Entity("TrueCode.CurrencyService.Core.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -79,13 +79,13 @@ namespace TrueCode.CurrencyService.Infrastructure.Db.Migrations
 
             modelBuilder.Entity("CurrencyUser", b =>
                 {
-                    b.HasOne("TrueCode.CurrencyService.Domain.Entities.Currency", null)
+                    b.HasOne("TrueCode.CurrencyService.Core.Domain.Entities.Currency", null)
                         .WithMany()
                         .HasForeignKey("FavoriteCurrenciesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TrueCode.CurrencyService.Domain.Entities.User", null)
+                    b.HasOne("TrueCode.CurrencyService.Core.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

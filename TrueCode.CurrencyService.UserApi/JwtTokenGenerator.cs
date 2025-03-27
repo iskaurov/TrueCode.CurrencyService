@@ -3,8 +3,8 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using TrueCode.CurrencyService.Application;
-using TrueCode.CurrencyService.Application.Options;
+using TrueCode.CurrencyService.Core;
+using TrueCode.CurrencyService.Core.Options;
 using TrueCode.CurrencyService.Domain.Entities;
 
 namespace TrueCode.CurrencyService.UserApi;

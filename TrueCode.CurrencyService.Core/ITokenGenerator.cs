@@ -1,6 +1,6 @@
 using TrueCode.CurrencyService.Domain.Entities;
 
-namespace TrueCode.CurrencyService.Application;
+namespace TrueCode.CurrencyService.Core;
 
 public interface ITokenGenerator
 {

@@ -1,7 +1,10 @@
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using Grpc.Net.Client;
 using Grpc.Core;
+using Microsoft.AspNetCore.Mvc.Testing;
+using TrueCode.CurrencyService.Core.Models;
 using TrueCode.CurrencyService.FinanceApi.Grpc;
 
 namespace TrueCode.CurrencyService.Tests.FinanceApi;
@@ -27,17 +30,14 @@ public class GrpcCurrencyServiceTests : IAsyncLifetime
     public async Task GetFavorites_ShouldReturnList_WhenAuthorized()
     {
         // arrange
-        var token = await GetJwtTokenAsync("iskaurov", "12345");
+        var token = await Helper.GetToken("iskaurov", "12345");
 
         var headers = new Metadata
         {
             { "Authorization", $"Bearer {token}" }
         };
 
-        // act
         var response = await _client.GetFavoritesAsync(new FavoritesRequest(), headers);
-
-        // assert
         Assert.NotNull(response);
         Assert.NotEmpty(response.Currencies);
     }
@@ -53,22 +53,37 @@ public class GrpcCurrencyServiceTests : IAsyncLifetime
         Assert.Equal(StatusCode.Unauthenticated, ex.StatusCode);
     }
 
-    private async Task<string> GetJwtTokenAsync(string username, string password)
+    private async Task<string> GetJwtTokenAsync(string name, string password)
     {
         using var client = new HttpClient();
         var content = new StringContent($$"""
-            {
-              "name": "{{username}}",
-              "password": "{{password}}"
-            }
-            """, Encoding.UTF8, "application/json");
+                                          {
+                                            "name": "{{name}}",
+                                            "password": "{{password}}"
+                                          }
+                                          """, Encoding.UTF8, "application/json");
 
-        var response = await client.PostAsync("http://localhost:5151/auth/login", content);
-        response.EnsureSuccessStatusCode();
+        // var userApiFactory = new WebApplicationFactory<TrueCode.CurrencyService.UserApi.Program>();
+        // var userClient = userApiFactory.CreateClient();
+        // var loginPayload = new { username, password };
+        // var loginResponse = await userClient.PostAsJsonAsync("/auth/login", loginPayload);
+        // var loginResult = await loginResponse.Content.ReadFromJsonAsync<TokenResponse>();
 
-        var json = await response.Content.ReadAsStringAsync();
-        var tokenObj = JsonSerializer.Deserialize<JsonElement>(json);
+        name = "iskaurov";
+        password = "12345";
+        var userApiFactory = new WebApplicationFactory<TrueCode.CurrencyService.UserApi.Program>();
+        var userClient = userApiFactory.CreateClient();
+        var loginPayload = new { name, password };
+        var loginResponse = await userClient.PostAsJsonAsync("/auth/login", loginPayload);
+        var loginResult = await loginResponse.Content.ReadFromJsonAsync<TokenResponse>();
+        var token = loginResult!.Token;
+        return loginResult!.Token;
 
-        return tokenObj.GetProperty("token").GetString()!;
+        // var response = await client.PostAsync("http://localhost:5151/auth/login", content);
+        // response.EnsureSuccessStatusCode();
+        // var json = await response.Content.ReadAsStringAsync();
+        // var tokenObj = JsonSerializer.Deserialize<JsonElement>(json);
+
+        //return tokenObj.GetProperty("token").GetString()!;
     }
 }

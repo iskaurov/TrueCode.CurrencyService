@@ -17,8 +17,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TrueCode.CurrencyService.Application\TrueCode.CurrencyService.Application.csproj" />
-      <ProjectReference Include="..\TrueCode.CurrencyService.Domain\TrueCode.CurrencyService.Domain.csproj" />
+      <ProjectReference Include="..\TrueCode.CurrencyService.Core\TrueCode.CurrencyService.Core.csproj" />
+      <ProjectReference Include="..\TrueCode.CurrencyService.Core.Domain\TrueCode.CurrencyService.Core.Domain.csproj" />
       <ProjectReference Include="..\TrueCode.CurrencyService.Infrastructure.Db\TrueCode.CurrencyService.Infrastructure.Db.csproj" />
     </ItemGroup>
 

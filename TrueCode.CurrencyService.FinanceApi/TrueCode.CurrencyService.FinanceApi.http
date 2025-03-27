@@ -1,6 +1,6 @@
 @TrueCode.CurrencyService.FinanceApi_HostAddress = http://localhost:5075
 
-GET {{TrueCode.CurrencyService.FinanceApi_HostAddress}}/weatherforecast/
+GET {{TrueCode.CurrencyService.FinanceApi_HostAddress}}/currency/favorites/
 Accept: application/json
 
 ###

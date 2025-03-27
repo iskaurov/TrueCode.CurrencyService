@@ -1,7 +1,7 @@
 using TrueCode.CurrencyService.Domain.Repositories;
 using TrueCode.CurrencyService.FinanceApi.Models;
 
-namespace TrueCode.CurrencyService.Application.Services;
+namespace TrueCode.CurrencyService.Core.Services;
 
 public class CurrencyService(IUserRepository userRepository) : ICurrencyService
 {

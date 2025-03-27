@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.Application", "TrueCode.CurrencyService.Application\TrueCode.CurrencyService.Application.csproj", "{27B24A90-35D8-4B36-B9DB-1F4760FDA46F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.Core", "TrueCode.CurrencyService.Core\TrueCode.CurrencyService.Core.csproj", "{27B24A90-35D8-4B36-B9DB-1F4760FDA46F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.Domain", "TrueCode.CurrencyService.Domain\TrueCode.CurrencyService.Domain.csproj", "{E6CFF94C-512E-4F69-9EAA-07218F7E5C16}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.Core.Domain", "TrueCode.CurrencyService.Core.Domain\TrueCode.CurrencyService.Core.Domain.csproj", "{E6CFF94C-512E-4F69-9EAA-07218F7E5C16}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.Infrastructure.Db", "TrueCode.CurrencyService.Infrastructure.Db\TrueCode.CurrencyService.Infrastructure.Db.csproj", "{2A6CD0BB-52C3-4246-88DF-C24C18E2214C}"
 EndProject
@@ -17,11 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.Us
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.FinanceApi", "TrueCode.CurrencyService.FinanceApi\TrueCode.CurrencyService.FinanceApi.csproj", "{2D14A9B2-02A2-451F-B241-409B0F329DAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.Gateway", "TrueCode.CurrencyService.Gateway\TrueCode.CurrencyService.Gateway.csproj", "{C16DC3A6-2CEE-4455-97AB-C5BC7E918EEA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.Infrustructure.Gateway", "TrueCode.CurrencyService.Infrustructure.Gateway\TrueCode.CurrencyService.Infrustructure.Gateway.csproj", "{C16DC3A6-2CEE-4455-97AB-C5BC7E918EEA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.Tests", "TrueCode.CurrencyService.Tests\TrueCode.CurrencyService.Tests.csproj", "{A3EE6815-5F7D-484D-BD3E-2D76E012F2CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.GrpcContracts", "TrueCode.CurrencyService.GrpcContracts\TrueCode.CurrencyService.GrpcContracts.csproj", "{D533A85E-B3BB-4737-83DE-65DA50679453}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.Core.GrpcContracts", "TrueCode.CurrencyService.Core.GrpcContracts\TrueCode.CurrencyService.Core.GrpcContracts.csproj", "{D533A85E-B3BB-4737-83DE-65DA50679453}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

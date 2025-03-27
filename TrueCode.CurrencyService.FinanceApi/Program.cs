@@ -4,13 +4,13 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
-using TrueCode.CurrencyService.Application.Services;
+using TrueCode.CurrencyService.Core.Services;
 using TrueCode.CurrencyService.Domain.Repositories;
 using TrueCode.CurrencyService.FinanceApi.Grpc;
 using TrueCode.CurrencyService.FinanceApi.Middlewares;
 using TrueCode.CurrencyService.Infrastructure.Db;
 using TrueCode.CurrencyService.Infrastructure.Repositories;
-using CurrencyService = TrueCode.CurrencyService.Application.Services.CurrencyService;
+using CurrencyService = TrueCode.CurrencyService.Core.Services.CurrencyService;
 
 var builder = WebApplication.CreateBuilder(args);
 

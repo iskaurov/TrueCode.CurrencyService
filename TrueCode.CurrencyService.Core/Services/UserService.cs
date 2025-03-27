@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using TrueCode.CurrencyService.Domain.Entities;
 using TrueCode.CurrencyService.Domain.Repositories;
 
-namespace TrueCode.CurrencyService.Application.Services;
+namespace TrueCode.CurrencyService.Core.Services;
 
 public class UserService(
     IUserRepository userRepository,

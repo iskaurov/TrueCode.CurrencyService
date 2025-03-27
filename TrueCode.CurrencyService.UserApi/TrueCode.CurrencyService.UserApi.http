@@ -1,6 +1,20 @@
 @TrueCode.CurrencyService.UserApi_HostAddress = http://localhost:5151
 
-GET {{TrueCode.CurrencyService.UserApi_HostAddress}}/weatherforecast/
+POST {{TrueCode.CurrencyService.UserApi_HostAddress}}/auth/register/
+Content-Type: application/json
 Accept: application/json
 
+{
+  "name": "test12345",
+  "password": "12345"
+}
+###
+
+POST {{TrueCode.CurrencyService.UserApi_HostAddress}}/auth/login/
+Content-Type: application/json
+
+{
+  "name": "test12345",
+  "password": "12345"
+}
 ###

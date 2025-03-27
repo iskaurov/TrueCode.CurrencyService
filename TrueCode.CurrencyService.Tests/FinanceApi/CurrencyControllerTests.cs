@@ -3,6 +3,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using TrueCode.CurrencyService.Core.Models;
 using Program = TrueCode.CurrencyService.FinanceApi.Program;
 
 namespace TrueCode.CurrencyService.Tests.FinanceApi;
@@ -19,6 +20,17 @@ public class CurrencyControllerTests(WebApplicationFactory<Program> factory)
 
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
+
+    public async Task<string> GetToken(string name, string password)
+    {
+        var userApiFactory = new WebApplicationFactory<TrueCode.CurrencyService.UserApi.Program>();
+        var userClient = userApiFactory.CreateClient();
+        var loginPayload = new { name, password };
+        var loginResponse = await userClient.PostAsJsonAsync("/auth/login", loginPayload);
+        var loginResult = await loginResponse.Content.ReadFromJsonAsync<TokenResponse>();
+        var token = loginResult!.Token;
+        return token;
+    }
     
     [Fact]
     public async Task GetFavorites_ShouldReturn200_WithValidToken()
@@ -33,16 +45,19 @@ public class CurrencyControllerTests(WebApplicationFactory<Program> factory)
         var registerPayload = new { name, password };
         await userClient.PostAsJsonAsync("/auth/register", registerPayload);
 
-        var loginPayload = new { name, password };
-        var loginResponse = await userClient.PostAsJsonAsync("/auth/login", loginPayload);
-        var loginResult = await loginResponse.Content.ReadFromJsonAsync<TokenResponse>();
-        var token = loginResult!.Token;
+        // name = "iskaurov";
+        // password = "12345";
+        // var loginPayload = new { name, password };
+        // var loginResponse = await userClient.PostAsJsonAsync("/auth/login", loginPayload);
+        // var loginResult = await loginResponse.Content.ReadFromJsonAsync<TokenResponse>();
+        // var token = loginResult!.Token;
+        //var tokenAgain = await GetToken(name, password);
+        var token = await Helper.GetToken(name, password);
 
         // Act: обращаемся к /currency/favorites с токеном
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         var response = await _client.GetAsync("/currency/favorites");
-
-        // Assert
+        
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
@@ -52,7 +67,6 @@ public class CurrencyControllerTests(WebApplicationFactory<Program> factory)
         // Act
         var response = await _client.GetAsync("/currency/favorites");
 
-        // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
     
@@ -60,18 +74,12 @@ public class CurrencyControllerTests(WebApplicationFactory<Program> factory)
     public async Task GetFavorites_ShouldReturn401_IfTokenIsInvalid()
     {
         // Arrange
-        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "this.is.not.valid");
+        _client.DefaultRequestHeaders.Authorization = 
+            new AuthenticationHeaderValue("Bearer", "this.is.not.valid");
 
         // Act
         var response = await _client.GetAsync("/currency/favorites");
-
-        // Assert
+        
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
-    }
-    
-// Локальная модель ответа
-    private class TokenResponse
-    {
-        public string Token { get; set; } = default!;
     }
 }

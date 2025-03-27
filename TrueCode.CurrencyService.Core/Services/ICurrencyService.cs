@@ -1,6 +1,6 @@
 using TrueCode.CurrencyService.FinanceApi.Models;
 
-namespace TrueCode.CurrencyService.Application.Services;
+namespace TrueCode.CurrencyService.Core.Services;
 
 public interface ICurrencyService
 {

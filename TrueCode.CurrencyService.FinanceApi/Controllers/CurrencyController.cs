@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using TrueCode.CurrencyService.Application.Services;
+using TrueCode.CurrencyService.Core.Services;
 
 namespace TrueCode.CurrencyService.FinanceApi.Controllers;
 

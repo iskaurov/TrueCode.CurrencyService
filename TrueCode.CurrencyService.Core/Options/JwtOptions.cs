@@ -1,4 +1,4 @@
-namespace TrueCode.CurrencyService.Application.Options;
+namespace TrueCode.CurrencyService.Core.Options;
 
 public class JwtOptions
 {
