@@ -8,16 +8,19 @@ using TrueCode.CurrencyService.Core.Services;
 using TrueCode.CurrencyService.Domain.Repositories;
 using TrueCode.CurrencyService.FinanceApi.Grpc;
 using TrueCode.CurrencyService.FinanceApi.Middlewares;
+using TrueCode.CurrencyService.Infrastructure.Common;
 using TrueCode.CurrencyService.Infrastructure.Db;
 using TrueCode.CurrencyService.Infrastructure.Repositories;
 using CurrencyService = TrueCode.CurrencyService.Core.Services.CurrencyService;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenLocalhost(5075, o => o.Protocols = HttpProtocols.Http2);
-});
+var envFile = builder.Environment.IsDevelopment() ? ".env.dev" : ".env";
+EnvLoader.Load("../",envFile);
+
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddEnvironmentVariables();
 
 builder.Services.AddScoped<JwtAuthInterceptor>();
 builder.Services.AddGrpc(options =>
@@ -26,14 +29,9 @@ builder.Services.AddGrpc(options =>
 });
 builder.Services.AddGrpcReflection();
 
-// Конфигурация
-builder.Configuration
-    .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile("appsettings.json", optional: false);
-
 // БД
 builder.Services.AddDbContext<CurrencyDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration["DEFAULT_CONNECTION"]));
 
 // JWT
 var jwtSection = builder.Configuration.GetSection("Jwt");
@@ -83,10 +81,21 @@ builder.Services.AddSwaggerGen(opt =>
     });
 });
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<ICurrencyService, CurrencyService>();
+builder.Services.
+    AddScoped<IUserRepository, UserRepository>().
+    AddScoped<ICurrencyService, CurrencyService>();
 
 builder.Services.AddControllers();
+
+// -------------------------------------
+// Конфигурация порта
+// -------------------------------------
+var port = builder.Configuration["FINANCE_API_PORT"] ?? "5152";
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(int.Parse(port));
+});
 
 var app = builder.Build();
 

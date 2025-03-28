@@ -42,9 +42,8 @@ var key = Encoding.UTF8.GetBytes(jwtKey!);
 // -------------------------------------
 // Подключение к PostgreSQL
 // -------------------------------------
-var connectionString = builder.Configuration["DEFAULT_CONNECTION"];
 builder.Services.AddDbContext<CurrencyDbContext>(options =>
-    options.UseNpgsql(connectionString));
+    options.UseNpgsql(builder.Configuration["DEFAULT_CONNECTION"]));
 
 // -------------------------------------
 // JWT-аутентификация
@@ -100,10 +99,11 @@ builder.Services.AddSwaggerGen(opt =>
 // Регистрация сервисов
 // -------------------------------------
 builder.Services.AddControllers();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<ITokenGenerator, JwtTokenGenerator>();
-builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
+builder.Services.AddScoped<IUserService, UserService>().
+AddScoped<IUserRepository, UserRepository>().
+AddScoped<ITokenGenerator, JwtTokenGenerator>().
+AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 // -------------------------------------
 // Конфигурация порта

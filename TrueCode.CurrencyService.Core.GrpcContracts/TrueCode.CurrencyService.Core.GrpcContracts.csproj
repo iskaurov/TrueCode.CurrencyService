@@ -20,5 +20,13 @@
         <PrivateAssets>all</PrivateAssets>
       </PackageReference>
     </ItemGroup>
+
+<!--    <PropertyGroup>-->
+<!--        <Protobuf_UseDuringPublish>false</Protobuf_UseDuringPublish>-->
+<!--    </PropertyGroup>-->
+
+<!--    <ItemGroup Condition="'$(Protobuf_UseDuringPublish)' != 'false'">-->
+<!--        <Protobuf Include="Protos/*.proto" GrpcServices="Server" />-->
+<!--    </ItemGroup>-->
     
 </Project>

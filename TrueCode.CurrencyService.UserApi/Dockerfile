@@ -13,6 +13,6 @@ WORKDIR /app
 
 COPY --from=build /out .
 
-ENV ASPNETCORE_URLS=http://+:80
+ENV ASPNETCORE_URLS=http://+:5161
 
 ENTRYPOINT ["dotnet", "TrueCode.CurrencyService.UserApi.dll"]
