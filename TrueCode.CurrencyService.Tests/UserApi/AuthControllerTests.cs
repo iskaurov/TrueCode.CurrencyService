@@ -2,14 +2,20 @@ using System.Net;
 using System.Net.Http.Json;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using TrueCode.CurrencyService.Infrastructure.Common;
 using Program = TrueCode.CurrencyService.UserApi.Program;
 
 namespace TrueCode.CurrencyService.Tests.UserApi;
 
-public class AuthControllerTests(WebApplicationFactory<Program> factory) 
-    : IClassFixture<WebApplicationFactory<Program>>
+public class AuthControllerTests : IClassFixture<WebApplicationFactory<Program>>
 {
-    private readonly HttpClient _client = factory.CreateClient();
+    private readonly HttpClient _client;
+
+    public AuthControllerTests(WebApplicationFactory<Program> factory)
+    {
+        EnvLoader.Load("../../../../");
+        _client = factory.CreateClient();
+    }
 
     [Fact]
     public async Task Register_ShouldSucceed_WithValidData()

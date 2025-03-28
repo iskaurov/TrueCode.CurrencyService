@@ -29,9 +29,22 @@ services:
       - postgres
     env_file: .env
     ports:
-      - "5161:80"
+      - "5161:5161"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+
+#  financeapi:
+#    build:
+#      context: .
+#      dockerfile: TrueCode.CurrencyService.FinanceApi/Dockerfile
+#    container_name: truecode_financeapi
+#    depends_on:
+#      - postgres
+#    env_file: .env
+#    ports:
+#      - "5162:80"
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
 
 volumes:
   pgdata:

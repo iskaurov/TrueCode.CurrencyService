@@ -9,37 +9,46 @@ using TrueCode.CurrencyService.Core.Options;
 using TrueCode.CurrencyService.Core.Services;
 using TrueCode.CurrencyService.Domain.Entities;
 using TrueCode.CurrencyService.Domain.Repositories;
+using TrueCode.CurrencyService.Infrastructure.Common;
 using TrueCode.CurrencyService.Infrastructure.Db;
 using TrueCode.CurrencyService.Infrastructure.Repositories;
 using TrueCode.CurrencyService.UserApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ----------------------------
-// Конфигурация и JwtOptions
-// ----------------------------
+var envFile = builder.Environment.IsDevelopment() ? ".env.dev" : ".env";
+EnvLoader.Load("../",envFile);
+
 builder.Configuration
     .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+    .AddEnvironmentVariables();
 
-builder.Services
-    .AddOptions<JwtOptions>()
-    .Bind(builder.Configuration.GetSection("Jwt"))
-    .ValidateDataAnnotations();
+// -------------------------------------
+// JwtOptions из ENV
+// -------------------------------------
+builder.Services.Configure<JwtOptions>(opt =>
+{
+    opt.Key = builder.Configuration["JWT:Key"]!;
+    opt.Issuer = builder.Configuration["JWT:Issuer"]!;
+    opt.Audience = builder.Configuration["JWT:Audience"]!;
+});
 
-// ----------------------------
+var jwtKey = builder.Configuration["JWT:Key"];
+var jwtIssuer = builder.Configuration["JWT:Issuer"];
+var jwtAudience = builder.Configuration["JWT:Audience"];
+
+var key = Encoding.UTF8.GetBytes(jwtKey!);
+
+// -------------------------------------
 // Подключение к PostgreSQL
-// ----------------------------
+// -------------------------------------
 var connectionString = builder.Configuration["DEFAULT_CONNECTION"];
 builder.Services.AddDbContext<CurrencyDbContext>(options =>
     options.UseNpgsql(connectionString));
 
-// ----------------------------
+// -------------------------------------
 // JWT-аутентификация
-// ----------------------------
-var jwtSection = builder.Configuration.GetSection("Jwt");
-var key = Encoding.UTF8.GetBytes(jwtSection["Key"]!);
-
+// -------------------------------------
 builder.Services.AddAuthentication(opt =>
 {
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -53,15 +62,15 @@ builder.Services.AddAuthentication(opt =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtSection["Issuer"],
-        ValidAudience = jwtSection["Audience"],
+        ValidIssuer = jwtIssuer,
+        ValidAudience = jwtAudience,
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
 });
 
-// ----------------------------
+// -------------------------------------
 // Swagger + Bearer
-// ----------------------------
+// -------------------------------------
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt =>
 {
@@ -87,19 +96,28 @@ builder.Services.AddSwaggerGen(opt =>
     });
 });
 
-// ----------------------------
+// -------------------------------------
 // Регистрация сервисов
-// ----------------------------
+// -------------------------------------
 builder.Services.AddControllers();
-
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITokenGenerator, JwtTokenGenerator>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
-// ----------------------------
+// -------------------------------------
+// Конфигурация порта
+// -------------------------------------
+var port = builder.Configuration["USER_API_PORT"] ?? "5151";
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(int.Parse(port));
+});
+
+// -------------------------------------
 // Построение и запуск
-// ----------------------------
+// -------------------------------------
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -115,8 +133,4 @@ app.MapControllers();
 
 app.Run();
 
-// 👇 partial class Program — для интеграционных тестов
-namespace TrueCode.CurrencyService.UserApi
-{
-    public partial class Program;
-}
+namespace TrueCode.CurrencyService.UserApi { public class Program; }
