@@ -61,6 +61,17 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
 
+  currencyupdater:
+    build:
+      context: .
+      dockerfile: TrueCode.CurrencyService.CurrencyUpdater/Dockerfile
+    container_name: truecode_currency_updater
+    depends_on:
+      - migrator
+    env_file: .env
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
 volumes:
   pgdata:
     
