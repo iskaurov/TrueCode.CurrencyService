@@ -47,6 +47,20 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
 
+  gateway:
+    build:
+      context: .
+      dockerfile: TrueCode.CurrencyService.Infrastructure.Gateway/Dockerfile
+    container_name: truecode_gateway
+    depends_on:
+      - userapi
+      - financeapi
+    env_file: .env
+    ports:
+      - "5160:5160"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
 volumes:
   pgdata:
     
