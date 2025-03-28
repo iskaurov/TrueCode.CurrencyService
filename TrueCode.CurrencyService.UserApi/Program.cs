@@ -30,8 +30,9 @@ builder.Services
 // ----------------------------
 // Подключение к PostgreSQL
 // ----------------------------
+var connectionString = builder.Configuration["DEFAULT_CONNECTION"];
 builder.Services.AddDbContext<CurrencyDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(connectionString));
 
 // ----------------------------
 // JWT-аутентификация
