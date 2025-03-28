@@ -5,9 +5,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="Microsoft.Extensions.Identity.Core">
-        <HintPath>..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\8.0.14\Microsoft.Extensions.Identity.Core.dll</HintPath>
-      </Reference>
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.0" />
     </ItemGroup>
 
     <ItemGroup>

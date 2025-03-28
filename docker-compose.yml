@@ -9,5 +9,17 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  migrator:
+    build:
+      context: .
+      dockerfile: TrueCode.CurrencyService.Migrator/Dockerfile
+    depends_on:
+      - postgres
+    env_file: .env
+    environment:
+      - APPLY_MIGRATIONS=${APPLY_MIGRATIONS}
+    restart: "no"
+
 volumes:
   pgdata:
+    
