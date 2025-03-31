@@ -4,6 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
@@ -29,6 +30,12 @@
       <ProjectReference Include="..\TrueCode.CurrencyService.Infrastructure.Db\TrueCode.CurrencyService.Infrastructure.Db.csproj" />
       <ProjectReference Include="..\TrueCode.CurrencyService.Core\TrueCode.CurrencyService.Core.csproj" />
       <ProjectReference Include="..\TrueCode.CurrencyService.Core.GrpcContracts\TrueCode.CurrencyService.Core.GrpcContracts.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 
 </Project>

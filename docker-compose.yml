@@ -34,7 +34,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
 
   financeapi:
-    platform: linux/amd64
     build:
       context: .
       dockerfile: TrueCode.CurrencyService.FinanceApi/Dockerfile
@@ -44,6 +43,20 @@ services:
     env_file: .env
     ports:
       - "5162:5162"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  grpcservice:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: TrueCode.CurrencyService.GrpcService/Dockerfile
+    container_name: truecode_grpcservice
+    depends_on:
+      - postgres
+    env_file: .env
+    ports:
+      - "5163:5163"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
 
