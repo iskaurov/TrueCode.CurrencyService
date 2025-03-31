@@ -4,36 +4,34 @@
 
 Микросервисная архитектура с 5 компонентами:
 
-| Проект               | Назначение                              |
-|----------------------|------------------------------------------|
-| `UserApi`            | Авторизация и регистрация пользователей |
-| `FinanceApi`         | Работа с валютами, избранными курсами   |
-| `CurrencyUpdater`    | Консольный воркер, обновляющий курсы    |
-| `Gateway`            | API Gateway                             |
-| `Migrator`           | Применение миграций к базе данных       |
+| Проект            | Назначение                              |
+|-------------------|-----------------------------------------|
+| `UserApi`         | Авторизация и регистрация пользователей |
+| `FinanceApi`      | Работа с валютами, избранными курсами   |
+| `GrpcService`     | Аналог FinanceApi по grpc протоколу     |
+| `CurrencyUpdater` | Консольный воркер, обновляющий курсы    |
+| `Gateway`         | API Gateway                             |
+| `Migrator`        | Применение миграций к базе данных       |
 
 ---
 
-## 🚀 Быстрый старт (Docker Compose)
-
-> ⚠️ Требуется Docker и Docker Compose
+## 🚀 Запуск через Docker
 
 ```bash
 git clone git@github.com:ваш-юзер/TrueCode.CurrencyService.git
 cd TrueCode.CurrencyService
-cp .env.example .env # или проверь ручной .env
 docker compose up --build
 ```
 
 После запуска будут доступны:
 
-| Сервис       | URL                           |
-|--------------|-------------------------------|
-| Gateway      | http://localhost:5160         |
-| UserApi      | http://localhost:5161         |
-| FinanceApi   | http://localhost:5162         |
-| Swagger UI   | `/swagger` у каждого API      |
-| Postgres     | `localhost:5432`              |
+| Сервис      | URL                                   |
+|-------------|---------------------------------------|
+| Gateway     | http://localhost:5160                 |
+| UserApi     | http://localhost:5161 (+`/swagger`)   |
+| FinanceApi  | http://localhost:5162 (+`/swagger`)   |
+| GrpcService | http://localhost:5163                 |
+| Postgres    | `localhost:5432`                      |
 
 ---
 
@@ -41,16 +39,16 @@ docker compose up --build
 
 > Используются другие порты:
 
-| Сервис       | Порт       |
-|--------------|------------|
-| Gateway      | 5150       |
-| UserApi      | 5151       |
-| FinanceApi   | 5152       |
+| Сервис       | Порт |
+|--------------|------|
+| Gateway      | 5150 |
+| UserApi      | 5151 |
+| FinanceApi   | 5152 |
+| GrpcService  | 5153 |
 
-1. Укажи `.env` или `.env.local`
-2. В `appsettings.json` настрой порты
-3. Запускай проекты поочередно: UserApi → FinanceApi → Gateway
-4. Swagger доступен по `/swagger`
+1. Укажи `.env` или `.env.dev`
+2. Запускай проекты поочередно: UserApi → FinanceApi → Gateway
+3. Swagger доступен по `/swagger`
 
 ---
 ## 🛠 Миграции
@@ -75,39 +73,50 @@ dotnet test
 - Регистрация/логин
 - JWT авторизация
 - Защита endpoint'ов
-- gRPC-взаимодействие
 
 ---
 
 ## ⚙️ Переменные `.env`
+В этой репе .env храняться поскольку проект тестовый и описани есоставлено под соответствующие порты.
 
 ```dotenv
 # ==== DB ====
-DB_HOST=localhost
+DB_HOST=postgres
 DB_PORT=5432
 DB_NAME=currency_db
 DB_USER=currency_user
 DB_PASSWORD=12345
 
+# ==== CONNECTION STRINGS ====
+DEFAULT_CONNECTION=Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}
+
+APPLY_MIGRATIONS=true
+
 # ==== JWT ====
-JWT__Key=...
+JWT__Key=>vOCGh0q7{[18^}CyS_yMM7%4~2342342344234
 JWT__Issuer=TrueCode
 JWT__Audience=TrueCodeUsers
 
-# ==== Порты ====
-USER_API_PORT=5151
-FINANCE_API_PORT=5152
-GATEWAY_PORT=5150
+# ==== PORTS (для Docker Compose) ====
+USER_API_PORT=5161
+FINANCE_API_PORT=5162
+GRPC_PORT=5163
+GATEWAY_PORT=5160
+
+# ==== API URLs (если нужно для консольных клиентов) ====
+USER_API_URL=http://userapi:${USER_API_PORT}
+FINANCE_API_URL=http://financeapi:${FINANCE_API_PORT}
+GRPC_URL=http://grpc:${GATEWAY_PORT}
+GATEWAY_URL=http://gateway:${GATEWAY_PORT}
 ```
 
 ---
 
 ## 🥴 Что сделать при проверке
 
-- Swagger UI: протестировать ручки `/auth`, `/currency`
+- Swagger UI: протестировать ручки `/auth/register`, `/auth/login`, `/currency/favorites`
 - Проверить авторизацию и работу токена
-- Проверить gRPC через тесты
-- Остановить `docker compose down` при необходимости
+- Проверить gRPC (Kreya или прочее)
 
 ---
 
