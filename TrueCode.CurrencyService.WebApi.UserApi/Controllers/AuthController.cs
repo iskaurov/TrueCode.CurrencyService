@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using TrueCode.CurrencyService.Core.Services;
-using TrueCode.CurrencyService.UserApi.Models.Auth;
+using TrueCode.CurrencyService.WebApi.UserApi.Models.Auth;
 
-namespace TrueCode.CurrencyService.UserApi.Controllers;
+namespace TrueCode.CurrencyService.WebApi.UserApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]

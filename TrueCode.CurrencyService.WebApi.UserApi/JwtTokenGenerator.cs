@@ -7,7 +7,7 @@ using TrueCode.CurrencyService.Core;
 using TrueCode.CurrencyService.Core.Options;
 using TrueCode.CurrencyService.Domain.Entities;
 
-namespace TrueCode.CurrencyService.UserApi;
+namespace TrueCode.CurrencyService.WebApi.UserApi;
 
 public class JwtTokenGenerator(IOptions<JwtOptions> options) 
     : ITokenGenerator

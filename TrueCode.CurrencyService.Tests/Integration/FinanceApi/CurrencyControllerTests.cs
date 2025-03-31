@@ -23,7 +23,7 @@ public class CurrencyControllerTests(WebApplicationFactory<Program> factory)
 
     public async Task<string> GetToken(string name, string password)
     {
-        var userApiFactory = new WebApplicationFactory<TrueCode.CurrencyService.UserApi.Program>();
+        var userApiFactory = new WebApplicationFactory<WebApi.UserApi.Program>();
         var userClient = userApiFactory.CreateClient();
         var loginPayload = new { name, password };
         var loginResponse = await userClient.PostAsJsonAsync("/auth/login", loginPayload);
@@ -36,7 +36,7 @@ public class CurrencyControllerTests(WebApplicationFactory<Program> factory)
     public async Task GetFavorites_ShouldReturn200_WithValidToken()
     {
         // Arrange: получаем токен из UserApi
-        var userApiFactory = new WebApplicationFactory<TrueCode.CurrencyService.UserApi.Program>();
+        var userApiFactory = new WebApplicationFactory<WebApi.UserApi.Program>();
         var userClient = userApiFactory.CreateClient();
 
         var name = $"testuser_{Guid.NewGuid():N}";

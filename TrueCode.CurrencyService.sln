@@ -13,11 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.Mi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.CurrencyUpdater", "TrueCode.CurrencyService.CurrencyUpdater\TrueCode.CurrencyService.CurrencyUpdater.csproj", "{F3C90AD0-3C2B-434A-B9FD-2E580B270C68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.UserApi", "TrueCode.CurrencyService.UserApi\TrueCode.CurrencyService.UserApi.csproj", "{AF7907A2-2CC1-4137-8C93-BB4622D1892A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.WebApi.UserApi", "TrueCode.CurrencyService.WebApi.UserApi\TrueCode.CurrencyService.WebApi.UserApi.csproj", "{AF7907A2-2CC1-4137-8C93-BB4622D1892A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.FinanceApi", "TrueCode.CurrencyService.FinanceApi\TrueCode.CurrencyService.FinanceApi.csproj", "{2D14A9B2-02A2-451F-B241-409B0F329DAB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.WebApi.FinanceApi", "TrueCode.CurrencyService.WebApi.FinanceApi\TrueCode.CurrencyService.WebApi.FinanceApi.csproj", "{2D14A9B2-02A2-451F-B241-409B0F329DAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.Infrastructure.Gateway", "TrueCode.CurrencyService.Infrastructure.Gateway\TrueCode.CurrencyService.Infrastructure.Gateway.csproj", "{C16DC3A6-2CEE-4455-97AB-C5BC7E918EEA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.WebApi.Gateway", "TrueCode.CurrencyService.WebApi.Gateway\TrueCode.CurrencyService.WebApi.Gateway.csproj", "{C16DC3A6-2CEE-4455-97AB-C5BC7E918EEA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.Tests", "TrueCode.CurrencyService.Tests\TrueCode.CurrencyService.Tests.csproj", "{A3EE6815-5F7D-484D-BD3E-2D76E012F2CD}"
 EndProject

@@ -12,7 +12,7 @@ using TrueCode.CurrencyService.Domain.Repositories;
 using TrueCode.CurrencyService.Infrastructure.Common;
 using TrueCode.CurrencyService.Infrastructure.Db;
 using TrueCode.CurrencyService.Infrastructure.Repositories;
-using TrueCode.CurrencyService.UserApi;
+using TrueCode.CurrencyService.WebApi.UserApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -129,4 +129,4 @@ app.MapControllers();
 
 app.Run();
 
-namespace TrueCode.CurrencyService.UserApi { public class Program; }
+namespace TrueCode.CurrencyService.WebApi.UserApi { public class Program; }

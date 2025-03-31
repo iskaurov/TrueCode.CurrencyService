@@ -1,4 +1,4 @@
-namespace TrueCode.CurrencyService.UserApi.Models.Auth;
+namespace TrueCode.CurrencyService.WebApi.UserApi.Models.Auth;
 
 public class AuthResponse
 {

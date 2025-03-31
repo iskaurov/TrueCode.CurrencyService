@@ -29,8 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TrueCode.CurrencyService.UserApi\TrueCode.CurrencyService.UserApi.csproj" />
-    <ProjectReference Include="..\TrueCode.CurrencyService.FinanceApi\TrueCode.CurrencyService.FinanceApi.csproj" />
+    <ProjectReference Include="..\TrueCode.CurrencyService.WebApi.UserApi\TrueCode.CurrencyService.WebApi.UserApi.csproj" />
+    <ProjectReference Include="..\TrueCode.CurrencyService.WebApi.FinanceApi\TrueCode.CurrencyService.WebApi.FinanceApi.csproj" />
     <ProjectReference Include="..\TrueCode.CurrencyService.Core.GrpcContracts\TrueCode.CurrencyService.Core.GrpcContracts.csproj" />
   </ItemGroup>
 

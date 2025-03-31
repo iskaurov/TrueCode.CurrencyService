@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using TrueCode.CurrencyService.Infrastructure.Common;
-using Program = TrueCode.CurrencyService.UserApi.Program;
+using Program = TrueCode.CurrencyService.WebApi.UserApi.Program;
 
 namespace TrueCode.CurrencyService.Tests.Integration.UserApi;
 
