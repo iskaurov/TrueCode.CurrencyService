@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY ../.. .
 
-WORKDIR /app/TrueCode.CurrencyService.UserApi
+WORKDIR /app/TrueCode.CurrencyService.WebApi.UserApi
 RUN dotnet publish -c Release -o /out
 
 # --- Runtime stage ---

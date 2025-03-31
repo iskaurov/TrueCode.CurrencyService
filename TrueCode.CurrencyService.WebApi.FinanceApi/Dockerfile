@@ -3,7 +3,7 @@ WORKDIR /app
 
 COPY ../.. .
 
-WORKDIR /app/TrueCode.CurrencyService.FinanceApi
+WORKDIR /app/TrueCode.CurrencyService.WebApi.FinanceApi
 RUN dotnet publish -c Release -o /out
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
