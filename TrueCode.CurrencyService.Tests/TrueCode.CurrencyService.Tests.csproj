@@ -34,8 +34,8 @@
     <ProjectReference Include="..\TrueCode.CurrencyService.Core.GrpcContracts\TrueCode.CurrencyService.Core.GrpcContracts.csproj" />
   </ItemGroup>
 
-<!--  <ItemGroup>-->
-<!--    <Protobuf Include="..\TrueCode.CurrencyService.GrpcContracts\Protos\currency.proto" GrpcServices="Client" />-->
-<!--  </ItemGroup>-->
+  <ItemGroup>
+    <Folder Include="Integration\" />
+  </ItemGroup>
 
 </Project>

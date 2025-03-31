@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using TrueCode.CurrencyService.Infrastructure.Common;
 using Program = TrueCode.CurrencyService.UserApi.Program;
 
-namespace TrueCode.CurrencyService.Tests.UserApi;
+namespace TrueCode.CurrencyService.Tests.Integration.UserApi;
 
 public class AuthControllerTests : IClassFixture<WebApplicationFactory<Program>>
 {

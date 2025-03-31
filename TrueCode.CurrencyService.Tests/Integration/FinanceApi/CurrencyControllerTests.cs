@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using TrueCode.CurrencyService.Core.Models;
 using Program = TrueCode.CurrencyService.FinanceApi.Program;
 
-namespace TrueCode.CurrencyService.Tests.FinanceApi;
+namespace TrueCode.CurrencyService.Tests.Integration.FinanceApi;
 
 public class CurrencyControllerTests(WebApplicationFactory<Program> factory)
     : IClassFixture<WebApplicationFactory<Program>>
@@ -44,14 +44,7 @@ public class CurrencyControllerTests(WebApplicationFactory<Program> factory)
 
         var registerPayload = new { name, password };
         await userClient.PostAsJsonAsync("/auth/register", registerPayload);
-
-        // name = "iskaurov";
-        // password = "12345";
-        // var loginPayload = new { name, password };
-        // var loginResponse = await userClient.PostAsJsonAsync("/auth/login", loginPayload);
-        // var loginResult = await loginResponse.Content.ReadFromJsonAsync<TokenResponse>();
-        // var token = loginResult!.Token;
-        //var tokenAgain = await GetToken(name, password);
+        
         var token = await Helper.GetToken(name, password);
 
         // Act: обращаемся к /currency/favorites с токеном
