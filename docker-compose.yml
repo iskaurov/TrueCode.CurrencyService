@@ -23,7 +23,7 @@ services:
   userapi:
     build:
       context: .
-      dockerfile: TrueCode.CurrencyService.UserApi/Dockerfile
+      dockerfile: TrueCode.CurrencyService.WebApi.UserApi/Dockerfile
     container_name: truecode_userapi
     depends_on:
       - postgres
@@ -36,7 +36,7 @@ services:
   financeapi:
     build:
       context: .
-      dockerfile: TrueCode.CurrencyService.FinanceApi/Dockerfile
+      dockerfile: TrueCode.CurrencyService.WebApi.FinanceApi/Dockerfile
     container_name: truecode_financeapi
     depends_on:
       - postgres
@@ -63,7 +63,7 @@ services:
   gateway:
     build:
       context: .
-      dockerfile: TrueCode.CurrencyService.Infrastructure.Gateway/Dockerfile
+      dockerfile: TrueCode.CurrencyService.WebApi.Gateway/Dockerfile
     container_name: truecode_gateway
     depends_on:
       - userapi
