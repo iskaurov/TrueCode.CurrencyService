@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.Core.GrpcContracts", "TrueCode.CurrencyService.Core.GrpcContracts\TrueCode.CurrencyService.Core.GrpcContracts.csproj", "{D533A85E-B3BB-4737-83DE-65DA50679453}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueCode.CurrencyService.GrpcService", "TrueCode.CurrencyService.GrpcService\TrueCode.CurrencyService.GrpcService.csproj", "{742CDA73-A215-4526-BCE5-A4D610F89D8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,5 +74,9 @@ Global
 		{D533A85E-B3BB-4737-83DE-65DA50679453}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D533A85E-B3BB-4737-83DE-65DA50679453}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D533A85E-B3BB-4737-83DE-65DA50679453}.Release|Any CPU.Build.0 = Release|Any CPU
+		{742CDA73-A215-4526-BCE5-A4D610F89D8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{742CDA73-A215-4526-BCE5-A4D610F89D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{742CDA73-A215-4526-BCE5-A4D610F89D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{742CDA73-A215-4526-BCE5-A4D610F89D8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

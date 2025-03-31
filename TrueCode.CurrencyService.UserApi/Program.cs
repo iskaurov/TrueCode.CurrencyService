@@ -33,11 +33,7 @@ builder.Services.Configure<JwtOptions>(opt =>
     opt.Audience = builder.Configuration["JWT:Audience"]!;
 });
 
-var jwtKey = builder.Configuration["JWT:Key"];
-var jwtIssuer = builder.Configuration["JWT:Issuer"];
-var jwtAudience = builder.Configuration["JWT:Audience"];
-
-var key = Encoding.UTF8.GetBytes(jwtKey!);
+var jwtKey = Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]!);
 
 // -------------------------------------
 // Подключение к PostgreSQL
@@ -61,9 +57,9 @@ builder.Services.AddAuthentication(opt =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtIssuer,
-        ValidAudience = jwtAudience,
-        IssuerSigningKey = new SymmetricSecurityKey(key)
+        ValidIssuer = builder.Configuration["JWT:Issuer"],
+        ValidAudience = builder.Configuration["JWT:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(jwtKey)
     };
 });
 

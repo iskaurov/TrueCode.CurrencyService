@@ -21,12 +21,8 @@
       </PackageReference>
     </ItemGroup>
 
-<!--    <PropertyGroup>-->
-<!--        <Protobuf_UseDuringPublish>false</Protobuf_UseDuringPublish>-->
-<!--    </PropertyGroup>-->
-
-<!--    <ItemGroup Condition="'$(Protobuf_UseDuringPublish)' != 'false'">-->
-<!--        <Protobuf Include="Protos/*.proto" GrpcServices="Server" />-->
-<!--    </ItemGroup>-->
+    <ItemGroup>
+      <Folder Include="obj\Debug\net8.0\Protos\" />
+    </ItemGroup>
     
 </Project>

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "TrueCode.CurrencyService.FinanceApi.Grpc";
+option csharp_namespace = "TrueCode.CurrencyService.GrpcContracts";
 
 package currency;
 
@@ -8,9 +8,8 @@ service CurrencyService {
   rpc GetFavorites (FavoritesRequest) returns (FavoritesResponse);
 }
 
-message FavoritesRequest {
-  string userId = 1;
-}
+message FavoritesRequest {};
+
 
 message FavoritesResponse {
   repeated Currency currencies = 1;

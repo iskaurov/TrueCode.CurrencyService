@@ -6,7 +6,6 @@ using System.Text;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using TrueCode.CurrencyService.Core.Services;
 using TrueCode.CurrencyService.Domain.Repositories;
-using TrueCode.CurrencyService.FinanceApi.Grpc;
 using TrueCode.CurrencyService.FinanceApi.Middlewares;
 using TrueCode.CurrencyService.Infrastructure.Common;
 using TrueCode.CurrencyService.Infrastructure.Db;
@@ -23,19 +22,13 @@ builder.Configuration
     .AddEnvironmentVariables();
 
 builder.Services.AddScoped<JwtAuthInterceptor>();
-builder.Services.AddGrpc(options =>
-{
-    options.Interceptors.Add<JwtAuthInterceptor>();
-});
-builder.Services.AddGrpcReflection();
 
 // БД
 builder.Services.AddDbContext<CurrencyDbContext>(options =>
     options.UseNpgsql(builder.Configuration["DEFAULT_CONNECTION"]));
 
 // JWT
-var jwtSection = builder.Configuration.GetSection("Jwt");
-var key = Encoding.UTF8.GetBytes(jwtSection["Key"]!);
+var jwtKey = Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]!);
 
 builder.Services.AddAuthentication(options =>
 {
@@ -50,9 +43,9 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtSection["Issuer"],
-        ValidAudience = jwtSection["Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(key)
+        ValidIssuer = builder.Configuration["JWT:Issuer"],
+        ValidAudience = builder.Configuration["JWT:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(jwtKey)
     };
 });
 builder.Services.AddAuthorization();
@@ -94,7 +87,10 @@ var port = builder.Configuration["FINANCE_API_PORT"] ?? "5152";
 
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(int.Parse(port));
+    options.ListenAnyIP(int.Parse(port), listenOptions =>
+    {
+        listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
+    });
 });
 
 var app = builder.Build();
@@ -103,12 +99,6 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
-
-app.MapGrpcService<CurrencyGrpcService>();
-if (app.Environment.IsDevelopment())
-{
-    app.MapGrpcReflectionService();
 }
 
 app.UseAuthentication();
